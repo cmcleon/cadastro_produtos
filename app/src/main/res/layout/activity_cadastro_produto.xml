@@ -8,7 +8,6 @@
     tools:context=".CadastroProdutoActivity">
 
     <TextView
-        android:id="@+id/textView_nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nome do Produto" />
@@ -21,7 +20,6 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/textView_valor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Valor do Produto" />
@@ -40,7 +38,6 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/btn_voltar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -50,7 +47,6 @@
             android:textAlignment="center" />
 
         <Button
-            android:id="@+id/btn_salvar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
