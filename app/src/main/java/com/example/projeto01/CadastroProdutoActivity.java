@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.projeto01.database.ProdutoDAO;
 import com.example.projeto01.modelo.Produto;
 
 public class CadastroProdutoActivity extends AppCompatActivity {
@@ -56,8 +58,14 @@ public class CadastroProdutoActivity extends AppCompatActivity {
             intent.putExtra("produtoEditado", produto);
             setResult(RESULT_CODE_PRODUTO_EDITADO, intent);
         } else {
-            intent.putExtra("novoProduto", produto);
-            setResult(RESULT_CODE_NOVO_PRODUTO, intent);
+            ProdutoDAO produtoDAO = new ProdutoDAO(getBaseContext());
+            boolean salvou = produtoDAO.salvar(produto);
+            if (salvou) {
+                finish();
+            }else{
+                Toast.makeText(CadastroProdutoActivity.this, "Erro ao salvar", Toast.LENGTH_LONG).show();
+            }
+
         }
 
         finish();

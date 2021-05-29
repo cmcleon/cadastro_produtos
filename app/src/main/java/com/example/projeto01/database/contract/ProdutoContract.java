@@ -7,9 +7,9 @@ public final class ProdutoContract {
     private ProdutoContract(){}
 
     public static final String criarTabela(){
-        return "CREATE TABLE" + ProdutoEntity.TABLE_NAME + " (" +
-                ProdutoEntity._ID + " INTERGER PRIMARY KEY," +
-                ProdutoEntity.COLLUMN_NAME_NOME + " TEXT," +
+        return "CREATE TABLE " + ProdutoEntity.TABLE_NAME + " ( " +
+                ProdutoEntity._ID + " INTERGER PRIMARY KEY, " +
+                ProdutoEntity.COLLUMN_NAME_NOME + " TEXT, " +
                 ProdutoEntity.COLLUMN_NAME_VALOR + " REAL)";
     }
 

@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.projeto01.database.ProdutoDAO;
 import com.example.projeto01.modelo.Produto;
 
 import java.util.ArrayList;
@@ -33,15 +34,18 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Produtos");
 
         listViewProdutos = findViewById(R.id.listView_produtos);
-        ArrayList<Produto> produtos = new ArrayList<Produto>();
-
-        adapterProdutos = new ArrayAdapter<Produto>(MainActivity.this,
-                android.R.layout.simple_list_item_1,
-                produtos);
-        listViewProdutos.setAdapter(adapterProdutos);
-
         definirOnClickListenerListView();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ProdutoDAO produtoDAO = new ProdutoDAO(getBaseContext());
+        adapterProdutos = new ArrayAdapter<Produto>(MainActivity.this,
+                android.R.layout.simple_list_item_1,
+                produtoDAO.listar());
+        listViewProdutos.setAdapter(adapterProdutos);
     }
 
     private void definirOnClickListenerListView(){
@@ -67,16 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickNovoProduto(View v){
         Intent intent = new Intent(MainActivity.this, CadastroProdutoActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_NOVO_PRODUTO);
+        startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE_NOVO_PRODUTO && resultCode == RESULT_CODE_NOVO_PRODUTO){
-            Produto produto = (Produto) data.getExtras().getSerializable("novoProduto");
-            produto.setId(++id);
-            this.adapterProdutos.add(produto);
-        }else if(requestCode == REQUEST_CODE_EDITAR_PRODUTO && resultCode == RESULT_CODE_PRODUTO_EDITADO){
+        if(requestCode == REQUEST_CODE_EDITAR_PRODUTO && resultCode == RESULT_CODE_PRODUTO_EDITADO){
             Produto produtoEditado = (Produto) data.getExtras().getSerializable("produtoEditado");
             for (int i=0; i< adapterProdutos.getCount(); i++){
                 Produto produto = adapterProdutos.getItem(i);
